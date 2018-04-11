@@ -70,7 +70,7 @@ python manage.py runworker  # run this demo
 ```
 
 ## Mechanism
-- We use http `ajax` and `post` to get the query image and expression, use `pika` for publishing/requesting a comprehension job, and use `websocket` to get model's response reflecing its results on web.
+- We use jQuery's `ajax` and `post` to get the query image and expression, use `pika` for publishing/requesting a comprehension job, and use `websocket` to get model's response reflecing its results on web.
 
 ## Database reset
 - In order to check database, install ``apt-get install sqlite3 libsqlite3-dev``. If for some reason we need to reset database, run:
