@@ -5,4 +5,5 @@ media/demo_images/*_segm_*.jpg
 MattNet2s
 demoenv
 db.sqlite3
+*.pyc
 
