@@ -1,12 +1,10 @@
 # Web Demo for MAttNet
 
 ## Introduction
-This repository is for setting up the web demo of [MAttNet](http://vision2.cs.unc.edu/refer/).
-I learned to use `django` in this project.
-The design follows the great repo [Grad-CAM](https://github.com/Cloud-CV/Grad-CAM/).
+This repository is for setting up the [web demo of MAttNet](http://vision2.cs.unc.edu/refer/).
+Its design basically follows the great repo [Grad-CAM](https://github.com/Cloud-CV/Grad-CAM/).
 
-**How to use**
-
+## How to use
 0) Set up environments: 
 - Ubuntu environment
 ```bash
@@ -46,7 +44,7 @@ python manage.py migrate
 ln -s /playpen1/licheng/Documents/MattNet2s .  # we use MAttNet2S's refcoco+genome model
 ```
 
-**Run the demo (env activated)**
+## Run the demo (env activated)
 - prerequisite:
 ```bash
 ./manage.py collectstatic  # collect all static imgs
@@ -71,10 +69,10 @@ daphne demo.asgi:channel_layer --port 9000  # have to use asgi for websocket
 python manage.py runworker  # run this demo
 ```
 
-**Mechanism**
+## Mechanism
 - We use http `ajax` and `post` to get the query image and expression, use `pika` for publishing/requesting a comprehension job, and use `websocket` to get model's response reflecing its results on web.
 
-**Database reset**
+## Database reset
 - In order to check database, install ``apt-get install sqlite3 libsqlite3-dev``. If for some reason we need to reset database, run:
 ```
 python manage.py flush
@@ -83,6 +81,6 @@ python manage.py sqlmigrate refer 0001
 python manage.py migrate
 ```
 
-**TODO**
+## TODO
 - Generation demo
 - Robot grasping demo
