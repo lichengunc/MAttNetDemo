@@ -1,0 +1,266 @@
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>UNC Referring Expressions</title> 
+    <meta name="description" content="UNC Referring Expressions">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- customized css -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+    <!-- google jquery -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+    <!-- microsoft jquery -->
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- dropzone -->
+    <script src="/static/js/dropzone.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.css">
+    <!-- reconnection websocket -->
+    <script src="/static/js/reconnecting-websocket.min.js"></script>
+</head>
+
+<body>
+
+{% block navbar %}
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href={% url 'refer:index' %}>UNC Referring Expressions</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a href={% url 'refer:index' %}>Home</a></li>
+            <li><a href={% url 'refer:comprehension' %}>Comprehension</a></li>
+            <li><a href="#">Generation</a></li>
+        </ul>
+    </div>
+</nav>
+{% endblock %}
+
+
+{% block demo_images %}
+<style>
+  .hiddenDiv{
+      display: none;
+  }
+  .button_link {
+  cursor: pointer;
+  }
+  .demo_img{
+  height: 150px !important;
+      padding: 6px;
+
+  }
+  .demo_img:hover {
+  border: 6px solid black;
+      padding: 0px;
+  cursor: pointer;
+  }
+  #show-demo-images-btn{
+      text-align: left;
+  }
+  @media(max-width: 540px){
+      #show-demo-images-btn{
+        text-align: center;
+
+      }
+  }
+
+.dz-upload { 
+    display: block; 
+    background-color: red; 
+    height: 10px;
+    width: 0%;
+}
+
+p, h1,h2,h3,h4, font, body{
+  font-weight: 300 !important;
+  font-family: 'Roboto', sans-serif !important;
+}
+</style>
+
+<div class="container">
+    <div class="page-header">
+        <h2><strong>Referring Expression Comprehension Demo using <a href="https://arxiv.org/pdf/1801.08186.pdf" target="_blank">MAttNet</a></strong></h2>
+        <br>
+        <div class="row">
+            <!-- <div class="col-md-9 col-xs-12"> -->
+                <!-- <font size="3">Click on one of these images for comprehension:</font> -->
+            <!-- </div> -->
+            <div id="show-demo-images-btn" class="col-md-6">
+                <font size="3">Click on one of these images for comprehension:</font>
+                <button  class="btn btn-info" value="demo12">Show More Images</button>
+            </div>
+        </div>
+        <div class="row demoImages" id="demoImages1">
+            <img src="/media/demo_images/COCO_train2014_000000095025.jpg"
+                 onclick="submitDemoImage(this.src)" class="demo_img col-md-2"></img>
+            <img src="/media/demo_images/COCO_val2014_000000521400.jpg"
+                 onclick="submitDemoImage(this.src)" class="demo_img col-md-2"></img>
+            <img src="/media/demo_images/COCO_train2014_000000036197.jpg"
+                 onclick="submitDemoImage(this.src)" class="demo_img col-md-2"></img>
+            <img src="/media/demo_images/COCO_train2014_000000117849.jpg"
+                 onclick="submitDemoImage(this.src)" class="demo_img col-md-2"></img>
+            <img src="/media/demo_images/COCO_train2014_000000458762.jpg"
+                 onclick="submitDemoImage(this.src)" class="demo_img col-md-2"></img>
+            <img src="/media/demo_images/COCO_train2014_000000194438.jpg"
+                 onclick="submitDemoImage(this.src)" class="demo_img col-md-2"></img>
+            <br>
+        </div>
+        <div class="row demoImages" id="demoImages2">
+            <img src="/media/demo_images/COCO_train2014_000000168779.jpg"
+                 onclick="submitDemoImage(this.src)" class="demo_img col-md-2"></img>
+            <img src="/media/demo_images/COCO_val2014_000000581913.jpg"
+                 onclick="submitDemoImage(this.src)" class="demo_img col-md-2"></img>
+            <img src="/media/demo_images/COCO_train2014_000000096250.jpg"
+                 onclick="submitDemoImage(this.src)" class="demo_img col-md-2"></img>
+            <img src="/media/demo_images/COCO_train2014_000000254063.jpg"
+                 onclick="submitDemoImage(this.src)" class="demo_img col-md-2"></img>
+            <img src="/media/demo_images/COCO_train2014_000000330025.jpg"
+                 onclick="submitDemoImage(this.src)" class="demo_img col-md-2"></img>
+            <img src="/media/demo_images/COCO_val2014_000000422253.jpg"
+                 onclick="submitDemoImage(this.src)" class="demo_img col-md-2"></img>
+            <br>
+        </div>
+        <div class="row hiddenDiv demoImages" id="demoImages3">
+            <img src="/media/demo_images/COCO_train2014_000000360693.jpg"
+                 onclick="submitDemoImage(this.src)" class="demo_img col-md-2"></img>
+            <img src="/media/demo_images/COCO_train2014_000000318997.jpg"
+                 onclick="submitDemoImage(this.src)" class="demo_img col-md-2"></img>
+            <img src="/media/demo_images/4people.jpg"
+                 onclick="submitDemoImage(this.src)" class="demo_img col-md-2"></img>
+            <img src="/media/demo_images/COCO_train2014_000000300415.jpg"
+                 onclick="submitDemoImage(this.src)" class="demo_img col-md-2"></img>
+            <img src="/media/demo_images/COCO_train2014_000000114732.jpg"
+                 onclick="submitDemoImage(this.src)" class="demo_img col-md-2"></img>
+            <img src="/media/demo_images/COCO_train2014_000000558817.jpg"
+                 onclick="submitDemoImage(this.src)" class="demo_img col-md-2"></img>
+            <br>
+        </div>
+        <div class="row hiddenDiv demoImages" id="demoImages4">
+            <img src="/media/demo_images/COCO_train2014_000000253264.jpg"
+                 onclick="submitDemoImage(this.src)" class="demo_img col-md-2"></img>
+            <img src="/media/demo_images/COCO_train2014_000000134420.jpg"
+                 onclick="submitDemoImage(this.src)" class="demo_img col-md-2"></img>
+            <img src="/media/demo_images/COCO_val2014_000000396387.jpg"
+                 onclick="submitDemoImage(this.src)" class="demo_img col-md-2"></img>
+            <img src="/media/demo_images/COCO_val2014_000000237618.jpg"
+                 onclick="submitDemoImage(this.src)" class="demo_img col-md-2"></img>
+            <img src="/media/demo_images/COCO_train2014_000000528707.jpg"
+                 onclick="submitDemoImage(this.src)" class="demo_img col-md-2"></img>
+            <img src="/media/demo_images/COCO_val2014_000000393056.jpg"
+                 onclick="submitDemoImage(this.src)" class="demo_img col-md-2"></img>
+            <br>
+        </div>
+
+        <div class="row hiddenDiv demoImages" id="demoImages5">
+            <img src="/media/demo_images/COCO_train2014_000000060769.jpg"
+                 onclick="submitDemoImage(this.src)" class="demo_img col-md-2"></img>
+            <img src="/media/demo_images/COCO_val2014_000000306693.jpg"
+                 onclick="submitDemoImage(this.src)" class="demo_img col-md-2"></img>
+            <img src="/media/demo_images/COCO_val2014_000000474437.jpg"
+                 onclick="submitDemoImage(this.src)" class="demo_img col-md-2"></img>
+            <img src="/media/demo_images/COCO_train2014_000000121052.jpg"
+                 onclick="submitDemoImage(this.src)" class="demo_img col-md-2"></img>
+            <img src="/media/demo_images/COCO_train2014_000000375504.jpg"
+                 onclick="submitDemoImage(this.src)" class="demo_img col-md-2"></img>
+            <img src="/media/demo_images/COCO_train2014_000000462138.jpg"
+                 onclick="submitDemoImage(this.src)" class="demo_img col-md-2"></img>
+            <br>
+        </div>
+        <div class="row hiddenDiv demoImages" id="demoImages6">
+            <img src="/media/demo_images/COCO_train2014_000000353701.jpg"
+                 onclick="submitDemoImage(this.src)" class="demo_img col-md-2"></img>
+            <img src="/media/demo_images/COCO_val2014_000000297578.jpg"
+                 onclick="submitDemoImage(this.src)" class="demo_img col-md-2"></img>
+            <img src="/media/demo_images/COCO_train2014_000000504065.jpg"
+                 onclick="submitDemoImage(this.src)" class="demo_img col-md-2"></img>
+            <img src="/media/demo_images/COCO_train2014_000000045089.jpg"
+                 onclick="submitDemoImage(this.src)" class="demo_img col-md-2"></img>
+            <img src="/media/demo_images/COCO_val2014_000000581899.jpg"
+                 onclick="submitDemoImage(this.src)" class="demo_img col-md-2"></img>
+            <img src="/media/demo_images/COCO_train2014_000000078583.jpg"
+                 onclick="submitDemoImage(this.src)" class="demo_img col-md-2"></img>
+            <br>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block form %}
+{% endblock %}
+
+{% block result %}
+{% endblock %}
+
+<!-- {% block credits %}
+<div class="container">
+    <h2 class="page-header"><strong>Credits</strong></h2>
+        <font size="4">
+            Part of the django code inherits <a href="https://github.com/Cloud-CV/Grad-CAM" target="_blank">GradCAM</a> demo.
+            <br><br>
+        </font><br>
+</div>
+{% endblock %} -->
+
+<script>
+  function scrollToElement(dstElement) {
+    try
+    {
+      var scrollPixels = dstElement.offset().top - $(".navbar-default").height()-30;
+      $('html, body').animate({
+      scrollTop: scrollPixels
+      }, 500);
+    }
+    catch(err)
+    {
+        console.log(err);
+    }
+  }
+</script>
+
+<script>
+  $(document).ready(function() {
+    $("#show-demo-images-btn button").click(function() {
+        if($(this).val() == "demo12") {
+            $(this).val("demo34");
+            $('#demoImages1').hide();
+            $('#demoImages2').hide();
+            $('#demoImages3').show();
+            $('#demoImages4').show();
+            $('#demoImages5').hide();
+            $('#demoImages6').hide();
+        } else if($(this).val() == "demo34") {
+            $(this).val("demo56");
+            $('#demoImages1').hide();
+            $('#demoImages2').hide();
+            $('#demoImages3').hide();
+            $('#demoImages4').hide();
+            $('#demoImages5').show();
+            $('#demoImages6').show();
+        } else if($(this).val() == "demo56") {
+            $(this).val("demo12");
+            $('#demoImages1').show();
+            $('#demoImages2').show();
+            $('#demoImages3').hide();
+            $('#demoImages4').hide();
+            $('#demoImages5').hide();
+            $('#demoImages6').hide();
+        } else {
+            alert("An error occured. We will fix it soon.");
+        }
+    });
+  });
+</script>
+
+</body>
+</html>
+
+
+
+
+
+

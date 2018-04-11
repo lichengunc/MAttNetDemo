@@ -1,0 +1,275 @@
+{% extends 'base.html' %}
+
+<style type="text/css">
+    .caption {
+    /*display: block;*/
+    /*text-align: center;*/
+    font-size: 18px !important;
+    font-weight: bold;
+    }
+
+    #inputCaption, #predictedCaption{
+        font-weight: bold;
+    }
+
+    .under
+    {
+    position:absolute;
+    /*left:0px;
+    top:0px;*/
+    z-index:-1;
+    }
+
+    .over
+    {
+    position:absolute;
+    /*left:40px;*/
+    /*top:10px;*/
+    z-index:0;
+    mix-blend-mode: multiply;
+    }
+
+    .finalImages{
+      width: 350px !important;
+      height: 350px !important;
+      padding: 6px;
+    }
+
+    .resultText{
+      margin-bottom: 15px !important;
+    }
+</style>
+
+{% block navbar %}
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href={% url 'refer:index' %}>UNC Referring Expressions</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a href={% url 'refer:index' %}>Home</a></li>
+            <li class="active"><a href={% url 'refer:comprehension' %}>Comprehension Demo</a></li>
+            <!-- <li><a href={% url 'refer:generation' %}>Generation</a></li> -->
+        </ul>
+    </div>
+</nav>
+{% endblock %}
+
+
+{% block form %}
+<div class="container">
+<!--     <div class="page-header">
+        <h2 id="userImages"><strong>Try Referring Expression Comprehension on Your Images</strong></h2>
+    </div> -->
+    <p><font size="3">or Enter image web url:</font></p>
+    {% block url_content %}
+        {% include 'upload_image_url.html' %}
+    {% endblock %}
+    <p><font size="3">or Choose a file / Drag a file here:</font></p>
+</div>
+<div class="container">    
+    <form id="my-dropzone" method="post" class="dropzone" action="{% url 'refer:upload' %}" enctype="multipart/form-data">
+        <!-- <input type="hidden" id="demoType" name="demo_type" value="">  -->
+        <input type="hidden" id="appType" name="type" value="comprehension">
+        {% csrf_token %}
+        {% include 'form.html' %}
+    </form>
+</div>
+
+{% endblock %}
+
+
+{% block result %}
+<script type="text/javascript">
+
+var getLocation = function(href) {
+    var l = document.createElement("a");
+    l.href = href;
+    return l;
+}
+
+function submitDemoImage(src){
+    var img_path = getLocation(src).pathname;
+    console.log({"file_path": img_path})
+    $("#inputImageAfterUpload").attr('src', img_path);
+    $("#ResultDiv").show();
+    $("#Expression").val("");
+    $("#show-comprehension-result").hide();
+    scrollToElement($("#resultHeading"));
+}
+
+function submitImageUsingUrl(){
+    var src = document.getElementById("image_url").value;
+    console.log("Starting the Image Download process");
+    $('#comments').prepend('<br>');
+    $('#comments').prepend('<li>' + "Starting the Image Download process." + '</li>');
+  
+    $.ajax({
+        type : "POST",
+        url  : '{% url 'refer:upload-url' %}',
+        data : {'src': src  , 
+                'socketid': "{{socketid}}", 
+                'csrfmiddlewaretoken': '{{ csrf_token }}', 
+                'type': "comprehension"}
+            }).done(function(data){
+                console.log(data);
+                $("#inputImageAfterUpload").attr('src', data["file_path"]);
+                $("#ResultDiv").show();
+                $("#Expression").val("");
+                $("#show-comprehension-result").hide();
+                scrollToElement($("#resultHeading"));
+    });
+};
+$("#image_url").keydown(function(e){
+    if (e.which === 13){
+        $("#image_url_submit_btn").click();
+    }
+});
+
+$('#image_url').on('paste', function(){
+    setTimeout(function(){
+        $("#image_url_submit_btn").click();
+    }, 0);
+});
+</script>
+
+
+<script type="text/javascript">
+  // Overriden 
+  Dropzone.options.myDropzone = {
+    autoProcessQueue: true,
+    uploadMultiple: false,
+    maxFiles: 10,
+
+    init: function() {
+      var myDropzone = this;
+      this.hiddenFileInput.removeAttribute('multiple');
+      myDropzone.on('success', function(file, data){
+        console.log("Dropzone: "+data['file_path']);
+        $("#inputImageAfterUpload").attr('src', data['file_path']);
+        $("#ResultDiv").show();
+        $("#Expression").val("");
+        $("#show-comprehension-result").hide();
+        scrollToElement($("#ResultDiv"));
+      });
+    }
+  }
+</script>
+
+<script type="text/javascript">
+
+function submitImageForComprehension() {
+    var expression = $("#Expression").val();
+    if (expression == "") {
+        alert("Please write down the expression before submitting.")
+    }else if (!if_allowed(expression)){
+        alert("Your expression contains disallowed words.")
+    }else{
+        var l = $("#inputImageAfterUpload")[0].src;
+        var img_path = getLocation(l).pathname;
+        console.log("Ajax submitting image for comprehension...");
+        $.ajax({
+            type    : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+            url     : '{% url 'refer:comprehension' %}', // the url where we want to POST
+            data    : { 'img_path': img_path, 
+                        'csrfmiddlewaretoken': "{{ csrf_token }}", 
+                        'expression': expression, 
+                        'socketid': "{{ socketid }}"} // our data object
+        })//using done to ensure callback
+        .done(function(response) {
+            console.log("Ajax call completed successfully.");
+        });
+    }
+}
+
+function if_allowed(expression) {
+    var forbid_words = ['bitch', 'nigger', 'negro', 'monkey', 'gorilla', 'asshole', 'fuck', 'twat', 'shit', 'nigga', 'damn']
+    var flag = true;
+    for (i=0; i<forbid_words.length; i++) {
+        if (expression.indexOf(forbid_words[i]) >= 0){
+            flag = false;
+        }
+    }
+    return flag;
+}
+
+$(document).ready(function(){
+  console.log(window.location.host)
+  console.log(window.location.pathname)
+
+  var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
+  console.log("socket name: " + ws_scheme + '://' + window.location.host + "/chat" + window.location.pathname)
+  var socket = new ReconnectingWebSocket(ws_scheme + '://' + window.location.host + "/chat" + window.location.pathname);
+
+  socket.onopen = function() {
+      console.log("User connected to the socket with socketid "+ "{{socketid }}");
+      socket.send("{{ socketid }}");
+  }
+
+  socket.onmessage = function(response) {
+    console.log("Getting response from the worker.....");
+    console.log(JSON.parse(response.data));
+
+    response = JSON.parse(response.data);
+    if ("info" in response){
+      console.log("Info is there as the key");
+    }
+
+    if("result" in response){
+
+      result = JSON.parse(response['result']);
+      var d = new Date();
+      $("#img1").attr("src",result['pred_lang_image']+"?"+d.getTime());
+      $("#img2").attr("src",result['pred_comp_image']+"?"+d.getTime());
+      $("#img3").attr("src",result['pred_segm_image']+"?"+d.getTime());
+      $("#show-comprehension-result").show();
+      scrollToElement($("#show-comprehension-result"));
+    }
+  }
+});
+
+</script>
+
+<div class="container">
+    <h2 id="resultHeading" class="center"><strong>Comprehension Results</strong></h2>
+    <div>
+        <font size="3">Describe the object that you are interested in. For example, "<u>left apple</u>", "<u>man on the left</u>", "<u>girl in yellow shirt</u>", etc.</font>
+        <br>
+        <font size="3">Note the dataset and our model only supports referring to <a href="http://cocodataset.org/#explore" target="_blank">80 COCO object categories</a>.</font>
+        <br>
+        <!-- <font size="3">Current model does not support referring to COCO-stuff, like building, sky, sea, etc.</font> -->
+    </div>
+    <br>
+    <div id="ResultDiv" class="row" style="padding-bottom:50px; display:None;">
+        <div class="col-md-4" style="padding-bottom: 30px; clear: both;">
+            <img class="img-responsive" src="" id="inputImageAfterUpload">
+        </div>
+        <div class="col-md-7" style="padding-bottom: 30px;">
+            <input id="Expression" class="form-control" name="expression" placeholder="Enter the referring expression...(Required)"><br>
+            <input type="button" value="Submit" onclick="submitImageForComprehension()" class="btn btn-primary">
+        </div>
+    </div>
+
+    <div class="row demoImages" style="display:None;" id="show-comprehension-result" >
+<!--         <div class="col-md-4">
+            <p class="caption" style="font-size: 14 px;" align="center"">Box Localization</p>
+            <img src="" class="col-md-12 " id="img2">
+        </div> -->
+        <div class="col-md-5">
+            <p class="caption" style="font-size:24px;" align="center">Comprehension</p>
+            <img src="" class="col-md-12 " id="img3">
+        </div>
+        <div class="col-md-5">
+            <p class="caption" style="font-size:24px;" align="center">Language Attention</p>
+            <img src="" style="height:200px;"" id="img1">
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+
+</body>
+</html>
+
+

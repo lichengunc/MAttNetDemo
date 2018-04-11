@@ -1,0 +1,8 @@
+media/comprehension
+media/demo_images/*_comp_*.jpg
+media/demo_images/*_lang_*.jpg
+media/demo_images/*_segm_*.jpg
+MattNet2s
+demoenv
+db.sqlite3
+

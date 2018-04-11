@@ -1,0 +1,332 @@
+{% load static %}
+
+<style>
+p, h1, h2, h3, a{
+  font-weight: 300 !important;
+  font-family: 'Roboto', sans-serif;
+}
+
+body{
+  font-family: 'Roboto', sans-serif;
+}
+
+p{
+  font-size: 16px;
+}
+.content
+{
+    width : 1000px;
+    padding : 25px 50px;
+    margin : 25px auto;
+    background-color : #fff;
+    box-shadow: 0px 0px 10px #999;
+    border-radius: 15px; 
+}
+.team{
+  width: 85%;
+  margin-bottom: 15px;
+ }
+ .member-name{
+  cursor: auto;
+  margin-top: 5px;
+ }
+
+ .img-responsive{
+  max-height: 100%;
+  display: block;
+  height: 150px; 
+ }
+ .team_div{
+  margin-top: 15px;
+ }
+
+ #network{
+  margin-top: 15px;
+ }
+
+ .headings{
+  margin-bottom: 15px;
+ }
+#team_heading{
+  margin-bottom: 25px;
+}
+li a{
+  font-size: 16px;
+}
+.navbar-brand{
+  font-size: 18px !important;
+}
+</style>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>UNC Referring Expressions</title> 
+    <meta name="description" content="UNC Referring Expressions">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- customized css -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+    <!-- google jquery -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+    <!-- microsoft jquery -->
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- dropzone -->
+    <script src="/static/js/dropzone.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.css">
+</head>
+
+
+<body style="background-color:#CDCDCD;">
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href={% url 'refer:index' %}>UNC Referring Expressions</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a href={% url 'refer:index' %}>Home</a></li>
+            <li><a href={% url 'refer:comprehension' %}>Comprehension Demo</a></li>
+            <!-- <li><a href={% url 'refer:generation' %}>Generation</a></li> -->
+        </ul>
+    </div>
+</nav>
+
+<div class="content" align="center">
+    <div class="page-header">
+        <h2 ><strong>UNC Referring Expressions</strong> </h2>
+    </div>
+    <div class="col-md-10 col-md-offset-1" align="left">
+        <font size="3">Humans refer to objects in their environments all the time,
+especially in dialogue with other people. 
+For example, one often uses referring expressions in everyday speech to indicate a particular person or
+object to a co-observer, e.g., “the man in the red hat” or “the book on the table”.
+In this project, we explore generating and comprehending natural language referring expressions for objects in images.</font>
+    </div>
+    <img src="/media/images/datasets.jpg" height="280"></img>
+    <br>
+    <br>
+    <div class="col-md-10 col-md-offset-1" align="left">
+        <font size="3">Use the <a href="https://github.com/lichengunc/refer" target="_blank">Refer API</a> to load 4 datasets: RefCLEF, RefCOCO, RefCOCO+, RefCOCOg.</font>
+    </div>
+</div>
+
+
+
+<div class="content" align="center">
+    <div class="page-header">
+        <h2 align="center"><strong>Two tasks</strong></h2>
+    </div>
+    <div class="col-md-10 col-md-offset-1" align="left">
+        <font size="3">Based on the above datasets, there are two tasks proposed: </font>
+        <ul>
+            <li><font size="3">Referring Expression Generation: Generate a referring expression describing the target region.</font></li>
+            <li><font size="3">Referring Expression Comprehension: Localize the object mentioned by the given referring expression.</font></li>
+        </ul>
+    </div>
+    <img src="/media/images/two_tasks.jpg" height="280"></img>
+</div>
+
+
+<div class="content" align="center">
+
+    <div class="page-header">
+        <h2 align="center"><strong>Research Papers</strong></h2>
+    </div>
+
+    <div>
+        <table>
+            <!-- CVPR2018 -->
+            <tr>
+                <td id="MAttNet">
+                    <a href="#"><img class="project-thumb" src="/media/images/matnet.jpg" width="255"></a>
+                </td>
+                <td style="padding: 50px;">
+                    <div>
+                        <div>
+                            <b>MAttNet: Modular Attention Network for Referring Expression Comprehension</b>
+                        </div>
+                        <div>
+                            <a target="_blank" href="http://cvpr2018.thecvf.com/">CVPR 2018</a>
+                            <br> 
+                            Licheng Yu, Zhe Lin, Xiaohui Shen, Jimei Yang, Xin Lu, Mohit Bansal, Tamara L. Berg<br>
+                        </div>      
+                        <div>
+                            [<a target="_blank" href="https://arxiv.org/pdf/1801.08186.pdf">Paper</a>]
+                            [<a target="_blank" href="/refer/comprehension">Demo</a>]
+                            [<a target="_blank" href="https://github.com/lichengunc/MAttNet">Code</a>]
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <!-- CVPR2017 -->
+            <tr>
+                <td id="Speaker and Listener">
+                    <a href="#"><img class="project-thumb" src="/media/images/arxiv17_model.jpg" width="255"></a>
+                </td>
+                <td style="padding: 50px;">
+                    <div>
+                        <div>
+                            <b>A Joint Speaker-Listener-Reinforcer Model for Referring Expressions</b>
+                        </div>
+                        <div>
+                            <a target="_blank" href="http://cvpr2017.thecvf.com/">CVPR 2017</a>
+                            <br>
+                            Licheng Yu, Hao Tan, Mohit Bansal, Tamara L. Berg<br>
+                        </div>      
+                        <div>
+                            [<a target="_blank" href="https://arxiv.org/abs/1612.09542">Paper</a>]
+                            [<a target="_blank" href="https://github.com/lichengunc/visdif_emb_guide2_reinforce">Code</a>]
+                            [<a target="_blank" href="http://bvisionweb1.cs.unc.edu/refer/">Project Page</a>]
+                            [<font color="red"><a target="_blank" href="https://www.youtube.com/watch?v=TuamOA-kF-8&list=PL_bDvITUYucBrD_1rwS_fslAsLVudcvua&index=8">Talk</a></font>]
+                            <!-- [<a target="_blank" href="https://github.com/lichengunc/visdif_emb_guide2_reinforce">Code</a>] -->
+                            <font color="red">(Spotlight presentation 8%)</font>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <!-- ECCV2016 -->
+            <tr>
+                <td id="modeling context">
+                    <a href="#"><img class="project-thumb" src="/media/images/eccv16.jpg" width="255"></a>
+                </td>
+                <td style="padding: 50px;">
+                    <div>
+                        <div>
+                            <b>Modeling Context in Referring Expressions</b>
+                        </div>
+                        <div>
+                            <a target="_blank" href="http://www.eccv2016.org/">ECCV 2016</a>
+                            <br>
+                            Licheng Yu, Patrick Poirson, Shan Yang, Alexander C. Berg, Tamara L. Berg<br>
+                        </div>      
+                        <div>
+                            [<a target="_blank" href="http://arxiv.org/abs/1608.00272">Paper</a>]
+                            [<a target="_blank" href="https://github.com/lichengunc/refer">Dataset</a>]
+                            [<a target="_blank" href="http://videolectures.net/eccv2016_yu_modeling_context/?q=licheng%20yu">Talk</a>]
+                            <font color="red">(Spotlight presentation 4.7%)</font>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <!-- EMNLP2014 -->
+            <tr>
+                <td id="modeling context">
+                    <a href="#"><img class="project-thumb" src="/media/images/emnlp14.png" width="255"></a>
+                </td>
+                <td style="padding: 50px;">
+                    <div>
+                        <div>
+                            <b>ReferItGame: Referring to Objects in Photographs of Natural Scenes</b>
+                        </div>
+                        <div>
+                            <a target="_blank" href="http://emnlp2014.org/">EMNLP 2014</a>
+                            <br>
+                            Sahar Kazemzadeh, Vicente Ordonez, Mark Matten, Tamara L. Berg<br>
+                        </div>      
+                        <div>
+                            [<a target="_blank" href="http://tamaraberg.com/papers/referit.pdf">Paper</a>]
+                            [<a target="_blank" href="https://github.com/lichengunc/refer">Dataset</a>]
+                            [<a target="_blank" href="http://tamaraberg.com/referitgame/">Project Page</a>]
+                            <font color="red">(Oral)</font>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div class="content" align="center">
+    <div class="page-header">
+        <h2 align="center"><strong>People</strong></h2>
+    </div>
+    <div class="row team text-center">
+        <div class="col-sm-3" align="center">
+            <a target="_blank" href="http://cs.unc.edu/~licheng/">
+                <img src="/media/images/team/licheng.jpg" height="180" class="img-rounded">
+            </a>
+            <div class="member-name" align="center"><a  target="_blank" href="http://cs.unc.edu/~licheng/">Licheng Yu</a></div>
+      </div>
+      <div class="col-sm-3" align="center">
+            <a target="_blank" href="http://tamaraberg.com">
+                <img src="/media/images/team/tamara.jpg" height="180" class="img-rounded">
+            </a>
+            <div class="member-name" align="center"><a  target="_blank" href="http://tamaraberg.com/">Tamara L. Berg</a></div>
+      </div>
+      <div class="col-sm-3" align="center">
+            <a target="_blank" href="http://www.cs.unc.edu/~mbansal/">
+                <img src="/media/images/team/mohit.jpg" height="180" class="img-rounded">
+            </a>
+            <div class="member-name" align="center"><a  target="_blank" href="http://www.cs.unc.edu/~mbansal/">Mohit Bansal</a></div>
+      </div>
+      <div class="col-sm-3" align="center">
+            <img src="/media/images/team/sahar.jpg" height="180" class="img-rounded">
+            <div class="member-name" align="center"><a>Sahar Kazemzadeh</a></div>
+      </div>
+    </div>
+
+    <div class="row team text-center">
+        <div class="col-sm-3" align="center">
+            <a target="_blank" href="http://acberg.com/">
+                <img src="/media/images/team/alex.jpg" height="180" class="img-rounded">
+            </a>
+            <div class="member-name" align="center"><a target="_blank" href="http://acberg.com/">Alexander C. Berg</a></div>
+      </div>
+      <div class="col-sm-3" align="center">
+            <img src="/media/images/team/patrick.jpg" height="180" class="img-rounded">
+            <div class="member-name" align="center"><a>Patrick Poirson</a></div>
+      </div>
+      <div class="col-sm-3" align="center">
+            <a target="_blank" href="http://vicenteordonez.com/">
+                <img src="/media/images/team/vicente.jpg" height="180" class="img-rounded">
+            </a>
+            <div class="member-name" align="center"><a  target="_blank" href="http://vicenteordonez.com/">Vicente Ordóñez Román</a></div>
+      </div>
+      <div class="col-sm-3" align="center">
+            <a target="_blank" href="http://www.cs.unc.edu/~alexyang/">
+                <img src="/media/images/team/shan.jpg" height="180" class="img-rounded">
+            </a>
+            <div class="member-name" align="center"><a  target="_blank" href="http://www.cs.unc.edu/~alexyang/">Shan Yang</a></div>
+      </div>
+    </div>
+
+    <div class="row team text-center">
+        <div class="col-sm-3" align="center">
+            <a target="_blank" href="http://www.cs.unc.edu/~airsplay/">
+                <img src="/media/images/team/hao.jpg" height="180" class="img-rounded">
+            </a>
+            <div class="member-name" align="center"><a  target="_blank" href="http://www.cs.unc.edu/~airsplay/">Hao Tan</a></div>
+      </div>
+      <div class="col-sm-3" align="center">
+            <img src="/media/images/team/mark.jpg" height="180" class="img-rounded">
+            <div class="member-name" align="center"><a>Mark Matten</a></div>
+      </div>
+        <div class="col-sm-3" align="center">
+            <a target="_blank" href="https://eng.ucmerced.edu/people/jyang44">
+                <img src="/media/images/team/jimei.jpg" height="180" class="img-rounded">
+            </a>
+            <div class="member-name" align="center"><a  target="_blank" href="https://eng.ucmerced.edu/people/jyang44">Jimei Yang</a></div>
+        </div>
+      <div class="col-sm-3" align="center">
+            <a target="_blank" href="http://users.eecs.northwestern.edu/~xsh835/">
+                <img src="/media/images/team/xiaohui.jpg" height="180" class="img-rounded">
+            </a>
+            <div class="member-name" align="center"><a  target="_blank" href="http://users.eecs.northwestern.edu/~xsh835/">Xiaohui Shen</a></div>
+      </div>
+    </div>
+
+    <div class="row team text-center">
+        <div class="col-sm-3" align="center">
+            <img src="/media/images/team/zhe.jpg" height="180" class="img-rounded">
+            <div class="member-name" align="center"><a  target="_blank" href="https://research.adobe.com/person/zhe-lin/">Zhe Lin</a></div>
+        </div>
+    </div>
+
+</div>
+
+
+</body>
+</html>
+
