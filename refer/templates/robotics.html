@@ -1,0 +1,148 @@
+{% load static %}
+
+<style>
+p, h1, h2, h3, a{
+  font-weight: 300 !important;
+  font-family: 'Roboto', sans-serif;
+}
+
+body{
+  font-family: 'Roboto', sans-serif;
+}
+
+p{
+  font-size: 16px;
+}
+.content
+{
+    width : 1000px;
+    padding : 25px 50px;
+    margin : 25px auto;
+    background-color : #fff;
+    box-shadow: 0px 0px 10px #999;
+    border-radius: 15px; 
+}
+.team{
+  width: 85%;
+  margin-bottom: 15px;
+ }
+ .member-name{
+  cursor: auto;
+  margin-top: 5px;
+ }
+
+ .img-responsive{
+  max-height: 100%;
+  display: block;
+  height: 150px; 
+ }
+ .team_div{
+  margin-top: 15px;
+ }
+
+ #network{
+  margin-top: 15px;
+ }
+
+ .headings{
+  margin-bottom: 15px;
+ }
+#team_heading{
+  margin-bottom: 25px;
+}
+li a{
+  font-size: 16px;
+}
+.navbar-brand{
+  font-size: 18px !important;
+}
+</style>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>UNC Referring Expressions</title> 
+    <meta name="description" content="UNC Referring Expressions">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- customized css -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+    <!-- google jquery -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+    <!-- microsoft jquery -->
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- dropzone -->
+    <script src="/static/js/dropzone.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.css">
+</head>
+
+<body>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href={% url 'refer:index' %}>UNC Referring Expressions</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a href={% url 'refer:index' %}>Home</a></li>
+            <li><a href={% url 'refer:comprehension' %}>Comprehension Demo</a></li>
+            <li class="active"><a href={% url 'refer:robotics' %}>Robot Demo</a></li>
+            <!-- <li><a href={% url 'refer:generation' %}>Generation</a></li> -->
+        </ul>
+    </div>
+</nav>
+
+<div class="content" align="center">
+    <div class="page-header">
+        <h2 ><strong>SMaRt: <font color="red">S</font>peech-Driven <font color="red">Ma</font>nipulation <font color="red">R</font>obo<font color="red">t</font></strong> </h2>
+    </div>
+    <div class="col-md-10 col-md-offset-1" align="left">
+        <font size="3">
+            Controlling robots to do task for human via natural language is one of the most concerned topic in human-robot interaction. 
+            In this project, we propose a robot system for executing simple command (pick, place, pour, etc.) on the target object via natural language description.
+            Specifically, given a set of objects (cup, bottle, teddy bear, etc.) on a table and a spoken English description, e.g., ``catch me the bottle on the left'', our robotic system will recognize the audio input, comprehend the instruction, localize target objects, and perform the manipulation task. 
+            We name the system SMaRt: Speech-Driven Manipulation Robot.
+        </font>
+    </div>
+    <br>
+    <div class="col-md-10 col-md-offset-1" align="center">
+        <h3 ><strong>Demo 1</strong></h3>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/x65KTkdOqAM" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </div>
+    <div class="col-md-10 col-md-offset-1" align="center">
+        <h3 ><strong>Demo 2</strong></h3>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/Me-pKSmopdg" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </div>
+    <br>
+    <div class="col-md-10 col-md-offset-1" align="center">
+        <h3 ><strong>Demo 3</strong></h3>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/6zOPY1CK434" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </div>
+    <br>
+    <br>
+    <div class="col-md-10 col-md-offset-1" align="center">
+        <h3 ><strong>Techniqual Report Coming Soon...</strong></h3>
+    </div>
+    <img src="/media/images/setup.jpg" height="300"></img>
+</div>
+    
+
+<!-- <div class="content" align="center">
+    <div class="page-header">
+        <h2 ><strong>SMaRT: Speech-driven Manipulation Robot</strong> </h2>
+    </div>
+    <div class="col-md-10 col-md-offset-1" align="left">
+        <font size="3">
+            Controlling robots to do task for human via natural language is one of the most concerned topic in human-robot interaction. 
+            In this project, we propose a robot system for executing simple command (pick, place, pour, etc.) on the target object via natural language description.
+            Specifically, given a set of objects (cup, bottle, teddy bear, etc.) on a table and a spoken English description, e.g., ``catch me the bottle on the left'', our robotic system will recognize the audio input, comprehend the instruction, localize target objects, and perform the manipulation task. 
+            We name the system SMaRt: Speech-Driven Manipulation Robot.
+        </font>
+    </div>
+    <br>
+
+</div> -->
+    
+</body>
+</html>
