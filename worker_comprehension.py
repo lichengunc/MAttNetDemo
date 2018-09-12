@@ -12,7 +12,6 @@ import yaml
 import json
 import traceback
 import re
-import time
 
 import torch
 import matplotlib
