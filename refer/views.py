@@ -27,6 +27,9 @@ def index(request, template_name='index.html'):
 def generation(request, template_name='generation.html'):
   return render(request, 'generation.html')
 
+def robotics(request, template_name='robotics.html'):
+  return render(request, 'robotics.html')
+
 def comprehension(request, template_name='comprehension.html'):
   socketid = uuid.uuid4()
   if request.method == "POST":

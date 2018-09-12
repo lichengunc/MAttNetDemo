@@ -1,5 +1,14 @@
 {% load static %}
 
+<style>
+    li a{
+        font-size: 16px;
+    }
+    .navbar-brand{
+        font-size: 18px !important;
+    }
+</style>
+
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -32,8 +41,8 @@
         </div>
         <ul class="nav navbar-nav">
             <li class="active"><a href={% url 'refer:index' %}>Home</a></li>
-            <li><a href={% url 'refer:comprehension' %}>Comprehension</a></li>
-            <li><a href="#">Generation</a></li>
+            <li><a href={% url 'refer:comprehension' %}>Comprehension Demo</a></li>
+            <li><a href={% url 'refer:robotics' %}>Robot Demo</a></li>
         </ul>
     </div>
 </nav>
