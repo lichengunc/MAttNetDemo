@@ -48,7 +48,7 @@ ln -s /playpen1/licheng/Documents/MattNet2s .  # we use MAttNet2S's refcoco+geno
 - prerequisite:
 ```bash
 ./manage.py collectstatic  # collect all static imgs
-sudo ln -s refer_demo_nginx.conf /etc/nginx/sites-available/refer_demo_nginx.conf  # symlink nginx setting
+sudo scp refer_demo_nginx.conf /etc/nginx/sites-available/refer_demo_nginx.conf  # symlink nginx setting, symlink to sites-enabled
 sudo service nginx restart  # restart nginx service
 sudo service rabbitmq-server start  # start rabbitmq (for using pika), everytime after server rebooting
 ```
