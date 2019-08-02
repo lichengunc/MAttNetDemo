@@ -3,23 +3,23 @@ Django==1.11
 Pillow
 h5py
 nltk
-channels
-asgi-redis
-pika
+channels==1.1.8
+asgi-redis==1.4.3
+pika==0.11.2
 pyyaml
-uwsgi
-websocket-client
-daphne
-requests
+uwsgi==2.0.15
+websocket-client==0.46.0
+daphne==1.4.1
+requests==2.18.4
 matplotlib
-scipy
-scikit-image
+scipy==1.0.0
+scikit-image==0.13.1
 easydict==1.6
 opencv-python
 jupyter
 cffi
 tensorboardX
-torchvision
+torchvision==0.2.0
 
 # pytorch v2.0
 http://download.pytorch.org/whl/cu80/torch-0.2.0.post3-cp27-cp27mu-manylinux1_x86_64.whl
